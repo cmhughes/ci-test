@@ -1,0 +1,27 @@
+INFO: testing.pl version 3.4, 2018-01-13, a script to indent .tex files
+      testing.pl lives here: /home/cmhughes/projects/ci-test/
+      Sun Jan 14 19:38:11 2018
+      Filename: myfile.tex
+INFO: Processing switches:
+INFO: Directory for backup files and indent.log: .
+INFO: YAML settings read: defaultSettings.yaml
+      Reading defaultSettings.yaml from /home/cmhughes/projects/ci-test/defaultSettings.yaml
+INFO: YAML settings read: indentconfig.yaml or .indentconfig.yaml
+      Reading path information from /home/cmhughes/.indentconfig.yaml
+      (Alternatively /home/cmhughes/indentconfig.yaml can be used)
+      ---
+      paths:
+        - /home/cmhughes/Documents/yamlfiles/mysettings.yaml
+      
+INFO: YAML settings, reading from the following files:
+      Reading USER settings from /home/cmhughes/Documents/yamlfiles/mysettings.yaml
+      Not showing settings in the log file (see showEveryYamlRead and showAmalgamatedSettings).
+INFO: Phase 1: searching for objects
+INFO: Phase 2: finding surrounding indentation
+INFO: Phase 3: indenting objects
+INFO: Phase 4: final indentation check
+INFO: Output routine:
+      Not outputting to file; see -w and -o switches for more options.
+      --------------
+INFO: Please direct all communication/issues to:
+      https://github.com/cmhughes/latexindent.pl
