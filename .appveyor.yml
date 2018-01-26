@@ -1,2 +1,2 @@
-test_script:
-  - cmd: ECHO this is batch
+install:
+  - small-test.bat
