@@ -2,5 +2,5 @@
 echo "hello world"
 echo "again again"
 #perl myfile.pl
-#perl testing.pl myfile.tex
+perl testing.pl myfile.tex
 exit
