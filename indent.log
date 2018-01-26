@@ -1,8 +1,9 @@
 INFO: testing.pl version 3.4, 2018-01-13, a script to indent .tex files
       testing.pl lives here: /home/cmhughes/projects/ci-test/
-      Sun Jan 14 19:38:11 2018
-      Filename: myfile.tex
+      Fri Jan 26 20:37:51 2018
+      Filename: environments-nested-fourth.tex
 INFO: Processing switches:
+      -w|--overwrite: Overwrite mode active, will make a back up of environments-nested-fourth.tex first
 INFO: Directory for backup files and indent.log: .
 INFO: YAML settings read: defaultSettings.yaml
       Reading defaultSettings.yaml from /home/cmhughes/projects/ci-test/defaultSettings.yaml
@@ -16,12 +17,16 @@ INFO: YAML settings read: indentconfig.yaml or .indentconfig.yaml
 INFO: YAML settings, reading from the following files:
       Reading USER settings from /home/cmhughes/Documents/yamlfiles/mysettings.yaml
       Not showing settings in the log file (see showEveryYamlRead and showAmalgamatedSettings).
+INFO: Backup procedure (-w flag active):
+      copying environments-nested-fourth.tex to ./environments-nested-fourth.bak
+      Backup file: ./environments-nested-fourth.bak
+      environments-nested-fourth.tex will be overwritten after indentation
 INFO: Phase 1: searching for objects
 INFO: Phase 2: finding surrounding indentation
 INFO: Phase 3: indenting objects
 INFO: Phase 4: final indentation check
 INFO: Output routine:
-      Not outputting to file; see -w and -o switches for more options.
+      Overwriting file environments-nested-fourth.tex
       --------------
 INFO: Please direct all communication/issues to:
       https://github.com/cmhughes/latexindent.pl

@@ -16,4 +16,6 @@ install:
  - cpanm Unicode::GCString
  - cpanm Log::Log4perl
  - cpanm Log::Dispatch::File
-script: "bash ./hello-world.sh"
+script: 
+  - "cd test-cases"
+  - "bash ./hello-world.sh"
