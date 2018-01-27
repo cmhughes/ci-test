@@ -5,6 +5,7 @@ build: off
 cache:
     - C:\strawberry
 
+# all the perl stuff
 install:
   - if not exist "C:\strawberry" cinst strawberryperl
   - set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
@@ -14,5 +15,8 @@ install:
   - cpanm --installdeps Log::Log4perl
   - cpanm --force Log::Log4perl
   - cpanm Log::Dispatch::File
-  - perl testing.pl myfile.tex
-#  - small-test.bat
+
+# the test cases
+build_script:
+  - cd test-cases/travis-ci
+  - appveyor-test-cases.bat
