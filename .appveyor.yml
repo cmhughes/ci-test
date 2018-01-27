@@ -1,2 +1,4 @@
+build: off
+
 install:
   - small-test.bat
