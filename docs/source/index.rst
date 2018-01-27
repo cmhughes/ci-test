@@ -10,7 +10,11 @@ Welcome to cmhdoctest's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+a heading
+=========
 
+another heading
+===============
 
 Indices and tables
 ==================
