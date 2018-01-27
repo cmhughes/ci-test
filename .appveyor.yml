@@ -1,4 +1,5 @@
 build: off
 
 install:
-  - small-test.bat
+  - echo "hello world"
+#  - small-test.bat
