@@ -7,18 +7,7 @@ Welcome to cmhdoctest's documentation!
 ======================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :numbered:
 
-a heading
-=========
-
-another heading
-===============
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   sec-introduction
+   sec-demonstration
