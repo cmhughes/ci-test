@@ -109,6 +109,7 @@ html_sidebars = {
     '**': [
         'relations.html',  # needs 'show_related': True theme option to display
         'searchbox.html',
+        'globaltoc.html', 
     ]
 }
 
@@ -170,4 +171,8 @@ texinfo_documents = [
 ]
 
 
+# allow numbering of listings
+numfig = True
 
+# set continuous numbering of listings
+numfig_secnum_depth = 0

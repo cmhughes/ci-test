@@ -5,11 +5,11 @@ Thanks
 ------
 
 I first created ``latexindent.pl`` to help me format chapter files in a
-big project. After I blogged about it on the TeX stack exchange
-:raw-latex:`\cite{cmhblog}` I received some positive feedback and
-follow-up feature requests. A big thank you to Harish Kumar
-:raw-latex:`\cite{harish}` who helped to develop and test the initial
-versions of the script.
+big project. After I blogged about it on the TeX stack exchange (“A Perl
+Script for Indenting Tex Files” 2017) I received some positive feedback
+and follow-up feature requests. A big thank you to Harish Kumar Kumar
+(2013) who helped to develop and test the initial versions of the
+script.
 
 The ``YAML``-based interface of ``latexindent.pl`` was inspired by the
 wonderful ``arara`` tool; any similarities are deliberate, and I hope
@@ -20,9 +20,9 @@ release of ``arara`` has meant there is no need.
 
 There have been several contributors to the project so far (and
 hopefully more in the future!); thank you very much to the people
-detailed in for their valued contributions, and thank you to those who
-report bugs and request features at
-:raw-latex:`\cite{latexindent-home}`.
+detailed in :numref:`sec:contributors` for their valued contributions,
+and thank you to those who report bugs and request features at (“Home of
+Latexindent.pl” 2017).
 
 License
 -------
@@ -35,8 +35,8 @@ Before you start using it on any important files, bear in mind that
 will always make at least one backup (you can choose how many it makes,
 see ) but you should still be careful when using it. The script has been
 tested on many files, but there are some known limitations (see
-[sec:knownlimitations]). You, the user, are responsible for ensuring
-that you maintain backups of your files before running
+:numref:`sec:knownlimitations`). You, the user, are responsible for
+ensuring that you maintain backups of your files before running
 ``latexindent.pl`` on them. I think it is important at this stage to
 restate an important part of the license here:
 
@@ -48,45 +48,55 @@ restate an important part of the license here:
 There is certainly no malicious intent in releasing this script, and I
 do hope that it works as you expect it to; if it does not, please first
 of all make sure that you have the correct settings, and then feel free
-to let me know at :raw-latex:`\cite{latexindent-home}` with a complete
+to let me know at (“Home of Latexindent.pl” 2017) with a complete
 minimum working example as I would like to improve the code as much as
 possible.
 
 Before you try the script on anything important (like your thesis), test
-it out on the sample files in the ``test-case`` directory
-:raw-latex:`\cite{latexindent-home}`.
+it out on the sample files in the ``test-case`` directory (“Home of
+Latexindent.pl” 2017).
 
 *If you have used any version 2.\* of ``latexindent.pl``, there are a
-few changes to the interface; see and the comments throughout this
-document for details*.
+few changes to the interface; see :numref:`app:differences` and the
+comments throughout this document for details*.
 
 About this documentation
 ------------------------
 
 As you read through this documentation, you will see many listings; in
-this version of the documentation, there are a total of . This may seem
-a lot, but I deem it necessary in presenting the various different
+this version of the documentation, there are a total of 345. This may
+seem a lot, but I deem it necessary in presenting the various different
 options of ``latexindent.pl`` and the associated output that they are
 capable of producing.
 
 The different listings are presented using different styles:
 
-.4
+ .. literalinclude:: demonstrations/demo-tex.tex
+ 	:caption: ``demo-tex.tex``
+ 	:name: lst:demo-tex
 
-.4 This type of listing is a ``.tex`` file.
+This type of listing is a ``.tex`` file.
 
-.4
-\*../defaultSettings.yaml[width=.8,before=,yaml-TCB]``fileExtensionPreference``\ lst:fileExtensionPreference-demo
+ .. literalinclude:: ../defaultSettings.yaml
+ 	:caption: ``fileExtensionPreference``
+ 	:lines: 38-42
+ 	:linenos:
+ 	:lineno-start: 38
 
-.4 This type of listing is a ``.yaml`` file; when you see line numbers
+This type of listing is a ``.yaml`` file; when you see line numbers
 given (as here) it means that the snippet is taken directly from
-``defaultSettings.yaml``, discussed in detail in .
+``defaultSettings.yaml``, discussed in detail in
+:numref:`sec:defuseloc`.
 
-.55
-\*../defaultSettings.yaml[MLB-TCB,width=.85,before=]``modifyLineBreaks``\ lst:modifylinebreaks-demo
+ .. literalinclude:: ../defaultSettings.yaml
+ 	:caption: ``modifyLineBreaks``
+ 	:lines: 391-393
+ 	:linenos:
+ 	:lineno-start: 391
 
-.4 This type of listing is a ``.yaml`` file, but it will only be
-relevant when the ``-m`` switch is active; see for more details.
+This type of listing is a ``.yaml`` file, but it will only be relevant
+when the ``-m`` switch is active; see :numref:`sec:modifylinebreaks`
+for more details.
 
 You will occasionally see dates shown in the margin (for example, next
 to this paragraph!) which detail the date of the version in which the
@@ -111,8 +121,8 @@ If you’d like to get started with ``latexindent.pl`` then simply type
         
 
 from the command line. If you receive an error message such as that
-given in [lst:poss-errors], then you need to install the missing perl
-modules.
+given in :numref:`lst:poss-errors`, then you need to install the
+missing perl modules.
 
 ::
 
@@ -131,4 +141,45 @@ appropriate modules.
 
 You might also like to see
 https://stackoverflow.com/questions/19590042/error-cant-locate-file-homedir-pm-in-inc,
-for example, as well as .
+for example, as well as :numref:`sec:requiredmodules`.
+
+.. raw:: html
+
+   <div id="refs" class="references">
+
+.. raw:: html
+
+   <div id="ref-cmhblog">
+
+“A Perl Script for Indenting Tex Files.” 2017. Accessed January 23.
+http://tex.blogoverflow.com/2012/08/a-perl-script-for-indenting-tex-files/.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div id="ref-latexindent-home">
+
+“Home of Latexindent.pl.” 2017. Accessed January 23.
+https://github.com/cmhughes/latexindent.pl.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   <div id="ref-harish">
+
+Kumar, Harish. 2013. “Early Version Testing.” November 10.
+https://github.com/harishkumarholla.
+
+.. raw:: html
+
+   </div>
+
+.. raw:: html
+
+   </div>
