@@ -120,7 +120,7 @@ if(!$readTheDocsMode){
         }
     }
 
-    foreach my $fileName ("sec-introduction.tex", "sec-demonstration.tex"){
+    foreach my $fileName ("sec-introduction.tex", "sec-demonstration.tex", "sec-how-to-use.tex"){
         @lines = q();
         # read the file
         open(MAINFILE, $fileName) or die "Could not open input file, $fileName";
@@ -144,6 +144,31 @@ if(!$readTheDocsMode){
         #$body =~ s/\\crefrange\{(.*?)\}\{(.*?)\}/$crossReferences{$1} -- $crossReferences{$2}/sg;
         $body =~ s/\\[vVcC]ref\{(.*?)\}/:numref:\\texttt\{$1\}/xsg;
         $body =~ s/\\crefrange\{(.*?)\}\{(.*?)\}/:numref:\\texttt\{$1\} -- :numref:\\texttt\{$2\}/sg;
+
+        # verbatim-like environments
+        $body =~ s/(\\begin\{commandshell\}(?:                       # cluster-only (), don't capture 
+                    (?!                   # don't include \begin in the body
+                        (?:\\begin)       # cluster-only (), don't capture
+                    ).                    # any character, but not \\begin
+                )*?\\end\{commandshell\})(?:\R|\h)*(\\label\{.*?\})/$2\n\n$1/xsg;
+        $body =~ s/\\begin\{commandshell\}/\\begin\{verbatim\}/sg;
+        $body =~ s/\\end\{commandshell\}/\\end\{verbatim\}/sg;
+        $body =~ s/\\begin\{cmhlistings\}/\\begin\{verbatim\}/sg;
+        $body =~ s/\\end\{cmhlistings\}/\\end\{verbatim\}/sg;
+
+        # flagbox switch
+        $body =~ s/\\flagbox/\\texttt/sg;
+
+        # labels
+        #
+        # move the labels ahead of section, subsection, subsubsection
+        $body =~ s/(\\section\{.*?\}\h*)(\\label\{.*?\})/$2$1/mg;
+        $body =~ s/(\\subsection\{.*?\}\h*)(\\label\{.*?\})/$2$1/mg;
+        $body =~ s/(\\subsubsection\{.*?\}\h*)(\\label\{.*?\})/$2$1/mg;
+
+        # 
+        $body =~ s/(\\label\{.*?\})/\n\n$1\n\n/sg;
+        $body =~ s/\\label/\\cmhlabel/sg;
 
         # line numbers for defaulSettings
         for (@namesAndOffsets){

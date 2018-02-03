@@ -110,6 +110,8 @@ ignore every occurrence of the ; they are simply there to highlight new
 and updated features. The new and updated features in this documentation
 () are on the following pages:
 
+ .. _sec:quickstart:
+
 Quick start
 -----------
 

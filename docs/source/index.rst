@@ -11,3 +11,4 @@ Welcome to cmhdoctest's documentation!
 
    sec-introduction
    sec-demonstration
+   sec-how-to-use
