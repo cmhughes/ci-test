@@ -28,7 +28,7 @@ Windows (Vista onwards) is ``C:\Users\username``\  [1]_
 :numref:`lst:indentconfig` shows a sample ``indentconfig.yaml`` file.
 
 .. code-block:: latex
-   :caption: ``indentconfig.yaml`` (sample)
+   :caption: ``indentconfig.yaml`` (sample) 
    :name: lst:indentconfig
 
     # Paths to user settings for latexindent.pl
@@ -62,7 +62,7 @@ refer to the many YAML files detailed throughout the rest of this
 documentation.
 
 .. code-block:: latex
-   :caption: ``mysettings.yaml`` (example)
+   :caption: ``mysettings.yaml`` (example) 
    :name: lst:mysettings
 
     # Default value of indentation
@@ -120,7 +120,7 @@ sample is shown in :numref:`lst:localSettings`, and you’ll find plenty
 of further examples throughout this manual.
 
 .. code-block:: latex
-   :caption: ``localSettings.yaml`` (example)
+   :caption: ``localSettings.yaml`` (example) 
    :name: lst:localSettings
 
     #  verbatim environments - environments specified

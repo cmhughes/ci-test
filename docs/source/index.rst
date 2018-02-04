@@ -13,3 +13,4 @@ Welcome to cmhdoctest's documentation!
    sec-demonstration
    sec-how-to-use
    sec-indent-config-and-settings
+   sec-default-user-local

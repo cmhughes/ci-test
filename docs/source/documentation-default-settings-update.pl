@@ -120,7 +120,11 @@ if(!$readTheDocsMode){
         }
     }
 
-    foreach my $fileName ("sec-introduction.tex", "sec-demonstration.tex", "sec-how-to-use.tex", "sec-indent-config-and-settings.tex"){
+    foreach my $fileName ("sec-introduction.tex", 
+                          "sec-demonstration.tex", 
+                          "sec-how-to-use.tex", 
+                          "sec-indent-config-and-settings.tex",
+                          "sec-default-user-local.tex",){
         @lines = q();
         # read the file
         open(MAINFILE, $fileName) or die "Could not open input file, $fileName";
@@ -134,15 +138,35 @@ if(!$readTheDocsMode){
         $body =~ s/\\hfill.*$//mg;
         $body =~ s/\\cmhlistingsfromfile(.*)\*/\\cmhlistingsfromfile$1/mg;
         $body =~ s/\\cmhlistingsfromfile(.*?\})\[.*?\]/\\cmhlistingsfromfile$1/mg;
-        $body =~ s/\\cmhlistingsfromfile\[/\\cmhlistingsfromfilefour\[/mg;
+        $body =~ s/\\cmhlistingsfromfile\*?\[style=yaml-LST\]\*?/\\cmhlistingsfromfile/mg;
+        $body =~ s/\\cmhlistingsfromfile\*?\[\]\*?/\\cmhlistingsfromfile/mg;
+        $body =~ s/\\cmhlistingsfromfile\*?\[showtabs=true\]\*?/\\cmhlistingsfromfile/mg;
+        $body =~ s/\\cmhlistingsfromfile\*?\[showspaces=true\]\*?/\\cmhlistingsfromfile/mg;
+        $body =~ s/\\cmhlistingsfromfile\*?\[/\\cmhlistingsfromfilefour\[/mg;
+        $body =~ s/\}\[\h*width=.*?\]\{/\}\{/sg;
+        $body =~ s/\}\[\h*yaml-TCB.*?\]\{/\}\{/sg;
+
+        $body =~ s/\\begin\{wrapfigure\}.*$//mg;
+        $body =~ s/\\end\{wrapfigure\}.*$//mg;
 
         # total listings
         $body =~ s/\\totallstlistings/$crossReferences{totalListings}/s;
 
         # cross references
-        #$body =~ s/\\[vVcC]ref\{(.*?)\}/$crossReferences{$1}/xsg;
-        #$body =~ s/\\crefrange\{(.*?)\}\{(.*?)\}/$crossReferences{$1} -- $crossReferences{$2}/sg;
-        $body =~ s/\\[vVcC]ref\{(.*?)\}/:numref:\\texttt\{$1\}/xsg;
+        $body =~ s/\\[vVcC]ref\{(.*?)\}/
+                # check for ,
+                my $internal = $1;
+                my $returnValue = q();
+                if($internal =~ m|,|s){
+                    my @refs = split(',',$internal);
+                    foreach my $reference (@refs){
+                        $returnValue .= ($returnValue eq ''?q():' and ').":numref:\\texttt\{$reference\}";
+                    }
+                } else {
+                    $returnValue = ":numref:\\texttt\{$internal\}";
+                };
+                $returnValue;
+                /exsg;
         $body =~ s/\\crefrange\{(.*?)\}\{(.*?)\}/:numref:\\texttt\{$1\} -- :numref:\\texttt\{$2\}/sg;
 
         # verbatim-like environments
@@ -160,6 +184,9 @@ if(!$readTheDocsMode){
 
         # flagbox switch
         $body =~ s/\\flagbox/\\texttt/sg;
+
+        # yaml title
+        $body =~ s/\\yamltitle\{(.*?)\}\*?\{(.*?)\}/\\texttt\{$1\}: \\textit\{$2\}\n\n/sg;
 
         # labels
         #
@@ -182,8 +209,11 @@ if(!$readTheDocsMode){
         for (@namesAndOffsets){
             my $firstLine = ${$_}{firstLine}; 
             my $lastLine = $firstLine + ${$_}{numberOfLines}; 
-            $body =~ s/\[style\h*=\h*${$_}{name}\h*\]/\{$firstLine\}\{$lastLine\}/s;
+            $body =~ s/\*?\[style\h*=\h*${$_}{name}\h*,?\]\*?/\{$firstLine\}\{$lastLine\}/sg;
         }
+
+        # can't have back to back verbatim
+        $body =~ s/(\\end\{verbatim\}(?:\h|\R)*)(\\cmhlistings.*?)$((?:\h|\R)*[a-zA-Z]+\h)/$1\n\n$3\n\n$2\n\n/smg; 
 
         # output the file
         open(OUTPUTFILE,">",$fileName);

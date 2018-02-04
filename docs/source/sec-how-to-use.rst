@@ -433,7 +433,7 @@ allows yet greater flexibility – you can use ``yes/no``, ``true/false``,
 or ``on/off`` to toggle the various options.
 
 .. code-block:: latex
-   :caption: ``arara`` sample usage
+   :caption: ``arara`` sample usage 
    :name: lst:arara
 
     %(*@@*) arara: indent

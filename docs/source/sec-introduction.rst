@@ -72,13 +72,14 @@ capable of producing.
 The different listings are presented using different styles:
 
  .. literalinclude:: demonstrations/demo-tex.tex
- 	:caption: ``demo-tex.tex``
+ 	:caption: ``demo-tex.tex`` 
  	:name: lst:demo-tex
 
 This type of listing is a ``.tex`` file.
 
  .. literalinclude:: ../defaultSettings.yaml
- 	:caption: ``fileExtensionPreference``
+ 	:caption: ``fileExtensionPreference`` 
+ 	:name: lst:fileExtensionPreference-demo
  	:lines: 38-42
  	:linenos:
  	:lineno-start: 38
@@ -89,7 +90,8 @@ given (as here) it means that the snippet is taken directly from
 :numref:`sec:defuseloc`.
 
  .. literalinclude:: ../defaultSettings.yaml
- 	:caption: ``modifyLineBreaks``
+ 	:caption: ``modifyLineBreaks`` 
+ 	:name: lst:modifylinebreaks-demo
  	:lines: 391-393
  	:linenos:
  	:lineno-start: 391
@@ -127,7 +129,7 @@ given in :numref:`lst:poss-errors`, then you need to install the
 missing perl modules.
 
 .. code-block:: latex
-   :caption: Possible error messages
+   :caption: Possible error messages 
    :name: lst:poss-errors
 
     Can't locate File/HomeDir.pm in @INC (@INC contains: /Library/Perl/5.12/darwin-thread-multi-2level /Library/Perl/5.12 /Network/Library/Perl/5.12/darwin-thread-multi-2level /Network/Library/Perl/5.12 /Library/Perl/Updates/5.12.4/darwin-thread-multi-2level /Library/Perl/Updates/5.12.4 /System/Library/Perl/5.12/darwin-thread-multi-2level /System/Library/Perl/5.12 /System/Library/Perl/Extras/5.12/darwin-thread-multi-2level /System/Library/Perl/Extras/5.12 .) at helloworld.pl line 10.

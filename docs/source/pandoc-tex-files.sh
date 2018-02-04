@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for f in sec-introduction sec-demonstration sec-how-to-use sec-indent-config-and-settings
+for f in sec-introduction sec-demonstration sec-how-to-use sec-indent-config-and-settings sec-default-user-local
 do
     echo "Processing ${f}.tex"
     pandoc --filter pandoc-citeproc cmhlistings.tex ${f}.tex -o ${f}.rst --bibliography latex-indent.bib --bibliography contributors.bib
@@ -12,5 +12,7 @@ do
     perl -p0i -e 's/\\texttt\{(.*?)\}/``$1``/sg' ${f}.rst
     # remove line breaks from :alt: text
     perl -p0i -e 's/(:alt:.*?)\R{2}(\h*)/\n\n$2/gs' ${f}.rst
+    # remove line breaks from :caption: text
+    perl -p0i -e 's/(:caption:.*?)(^\h+:name:)/my $caption=$1; my $name=$2; $caption=~ s|\R| |sg; $caption."\n".$name;/emgs' ${f}.rst
 done
 exit
