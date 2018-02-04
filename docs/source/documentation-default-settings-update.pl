@@ -120,7 +120,7 @@ if(!$readTheDocsMode){
         }
     }
 
-    foreach my $fileName ("sec-introduction.tex", "sec-demonstration.tex", "sec-how-to-use.tex"){
+    foreach my $fileName ("sec-introduction.tex", "sec-demonstration.tex", "sec-how-to-use.tex", "sec-indent-config-and-settings.tex"){
         @lines = q();
         # read the file
         open(MAINFILE, $fileName) or die "Could not open input file, $fileName";
@@ -155,6 +155,8 @@ if(!$readTheDocsMode){
         $body =~ s/\\end\{commandshell\}/\\end\{verbatim\}/sg;
         $body =~ s/\\begin\{cmhlistings\}/\\begin\{verbatim\}/sg;
         $body =~ s/\\end\{cmhlistings\}/\\end\{verbatim\}/sg;
+        $body =~ s/\\begin\{yaml\}/\\begin\{verbatim\}/sg;
+        $body =~ s/\\end\{yaml\}/\\end\{verbatim\}/sg;
 
         # flagbox switch
         $body =~ s/\\flagbox/\\texttt/sg;
@@ -166,9 +168,15 @@ if(!$readTheDocsMode){
         $body =~ s/(\\subsection\{.*?\}\h*)(\\label\{.*?\})/$2$1/mg;
         $body =~ s/(\\subsubsection\{.*?\}\h*)(\\label\{.*?\})/$2$1/mg;
 
+        # move figure label before \\begin{figure}
+        $body =~ s/(\\begin\{figure.*?)(\\label\{.*?\})/$2\n\n$1/s;
+
         # 
         $body =~ s/(\\label\{.*?\})/\n\n$1\n\n/sg;
         $body =~ s/\\label/\\cmhlabel/sg;
+
+        # figure
+        $body =~ s/\\input\{figure-schematic\}/\\includegraphics\{figure-schematic.png\}/s;
 
         # line numbers for defaulSettings
         for (@namesAndOffsets){
