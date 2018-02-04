@@ -432,9 +432,10 @@ You can use the rule in any of the ways described in
 allows yet greater flexibility – you can use ``yes/no``, ``true/false``,
 or ``on/off`` to toggle the various options.
 
-::
+.. code-block:: latex
+   :caption: ``arara`` sample usage
+   :name: lst:arara
 
-    {\texttt{arara} sample usage}{lst:arara}
     %(*@@*) arara: indent
     %(*@@*) arara: indent: {overwrite: yes}
     %(*@@*) arara: indent: {output: myfile.tex}

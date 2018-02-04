@@ -126,9 +126,10 @@ from the command line. If you receive an error message such as that
 given in :numref:`lst:poss-errors`, then you need to install the
 missing perl modules.
 
-::
+.. code-block:: latex
+   :caption: Possible error messages
+   :name: lst:poss-errors
 
-    {Possible error messages}{lst:poss-errors}
     Can't locate File/HomeDir.pm in @INC (@INC contains: /Library/Perl/5.12/darwin-thread-multi-2level /Library/Perl/5.12 /Network/Library/Perl/5.12/darwin-thread-multi-2level /Network/Library/Perl/5.12 /Library/Perl/Updates/5.12.4/darwin-thread-multi-2level /Library/Perl/Updates/5.12.4 /System/Library/Perl/5.12/darwin-thread-multi-2level /System/Library/Perl/5.12 /System/Library/Perl/Extras/5.12/darwin-thread-multi-2level /System/Library/Perl/Extras/5.12 .) at helloworld.pl line 10.
     BEGIN failed--compilation aborted at helloworld.pl line 10.
 
