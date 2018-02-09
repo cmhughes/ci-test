@@ -24,55 +24,57 @@ use Getopt::Long;              # to get the switches/options/flags
 
 # use lib to make sure that @INC contains the latexindent directory
 use lib $FindBin::RealBin;
-use LatexIndent::Document;
 
-# get the options
-my %switches = (readLocalSettings=>0);
-
-GetOptions (
-    "version|v"=>\$switches{version},
-    "silent|s"=>\$switches{silentMode},
-    "trace|t"=>\$switches{trace},
-    "ttrace|tt"=>\$switches{ttrace},
-    "local|l:s"=>\$switches{readLocalSettings},
-    "yaml|y=s"=>\$switches{yaml},
-    "onlydefault|d"=>\$switches{onlyDefault},
-    "overwrite|w"=>\$switches{overwrite},
-    "outputfile|o=s"=>\$switches{outputToFile},
-    "modifylinebreaks|m"=>\$switches{modifyLineBreaks},
-    "logfile|g=s"=>\$switches{logFileName},
-    "help|h"=>\$switches{showhelp},
-    "cruft|c=s"=>\$switches{cruftDirectory},
-    "screenlog|sl"=>\$switches{screenlog},
-);
-
-# check local settings doesn't interfer with reading the file;
-# this can happen if the script is called as follows:
+print "hello world\n";
+#use LatexIndent::Document;
 #
-#       latexindent.pl -l myfile.tex
+## get the options
+#my %switches = (readLocalSettings=>0);
 #
-# in which case, the GetOptions routine mistakes myfile.tex
-# as the optional parameter to the l flag.
+#GetOptions (
+#    "version|v"=>\$switches{version},
+#    "silent|s"=>\$switches{silentMode},
+#    "trace|t"=>\$switches{trace},
+#    "ttrace|tt"=>\$switches{ttrace},
+#    "local|l:s"=>\$switches{readLocalSettings},
+#    "yaml|y=s"=>\$switches{yaml},
+#    "onlydefault|d"=>\$switches{onlyDefault},
+#    "overwrite|w"=>\$switches{overwrite},
+#    "outputfile|o=s"=>\$switches{outputToFile},
+#    "modifylinebreaks|m"=>\$switches{modifyLineBreaks},
+#    "logfile|g=s"=>\$switches{logFileName},
+#    "help|h"=>\$switches{showhelp},
+#    "cruft|c=s"=>\$switches{cruftDirectory},
+#    "screenlog|sl"=>\$switches{screenlog},
+#);
 #
-# In such circumstances, we correct the mistake by assuming that 
-# the only argument is the file to be indented, and place it in @ARGV
-if($switches{readLocalSettings} and scalar(@ARGV) < 1) {
-    push(@ARGV,$switches{readLocalSettings});
-    $switches{readLocalSettings} = '';
-}
-
-# default value of readLocalSettings
+## check local settings doesn't interfer with reading the file;
+## this can happen if the script is called as follows:
+##
+##       latexindent.pl -l myfile.tex
+##
+## in which case, the GetOptions routine mistakes myfile.tex
+## as the optional parameter to the l flag.
+##
+## In such circumstances, we correct the mistake by assuming that 
+## the only argument is the file to be indented, and place it in @ARGV
+#if($switches{readLocalSettings} and scalar(@ARGV) < 1) {
+#    push(@ARGV,$switches{readLocalSettings});
+#    $switches{readLocalSettings} = '';
+#}
 #
-#       latexindent -l myfile.tex
+## default value of readLocalSettings
+##
+##       latexindent -l myfile.tex
+##
+## means that we wish to use localSettings.yaml
+#if(defined($switches{readLocalSettings}) and ($switches{readLocalSettings} eq '')){
+#    $switches{readLocalSettings} = 'localSettings.yaml';
+#}
 #
-# means that we wish to use localSettings.yaml
-if(defined($switches{readLocalSettings}) and ($switches{readLocalSettings} eq '')){
-    $switches{readLocalSettings} = 'localSettings.yaml';
-}
-
-# allow STDIN as input, if a filename is not present
-unshift( @ARGV, '-' ) unless @ARGV;
-
-my $document = bless ({name=>"masterDocument",fileName=>$ARGV[0],switches=>\%switches},"LatexIndent::Document");
-$document->latexindent;
+## allow STDIN as input, if a filename is not present
+#unshift( @ARGV, '-' ) unless @ARGV;
+#
+#my $document = bless ({name=>"masterDocument",fileName=>$ARGV[0],switches=>\%switches},"LatexIndent::Document");
+#$document->latexindent;
 exit(0);
