@@ -21,3 +21,10 @@ after_success:
   - ls -l *
   - cat ./test-cases/travis-ci/push.sh
   - "./test-cases/travis-ci/push.sh"
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GH_TOKEN  # Set in travis-ci.org dashboard, marked secur
+  keep-history: true
+  on:
+    branch: master
