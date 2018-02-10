@@ -213,7 +213,12 @@ if(!$readTheDocsMode){
                     my $tabular_body = $2;
                     my $tabular_end = $3;
                     $tabular_body =~ s|\{m\{.3\\linewidth\}@\{\\hspace\{.25cm\}\}m\{.4\\linewidth\}@\{\\hspace\{.25cm\}\}m\{.2\\linewidth\}\}|\{lll\}|s;
-                    $tabular_body =~ s|\\begin\{lstlisting\}.*?\\end\{lstlisting\}||sg;
+                    $tabular_body =~ s|\\begin\{lstlisting\}(.*?)\\end\{lstlisting\}|
+                                        my $verb_body=$1;
+                                        $verb_body=~s@\R*@@sg;
+                                        $verb_body=~s@^\[.*?\]@@s;
+                                        $verb_body=~s@\h*$@@sg;
+                                        "\\verb!".$verb_body."!";|sgex;
                     $tabular_body =~ s|\\\\\\cmidrule|\n\\\\\\cmidrule|sg;
                     $tabular_begin.$tabular_body.$tabular_end; /xesg;
         
