@@ -156,9 +156,9 @@ then ``latexindent.pl`` will *always* prioritize
 ``verbatimCommands``: *fields*
 
 A field that contains a list of commands that are verbatim commands, for
-example ``\lstinline``; any commands populated in this field are
-protected from line breaking routines (only relevant if the ``-m`` is
-active, see :numref:`sec:modifylinebreaks`).
+example ``\verb``; any commands populated in this field are protected
+from line breaking routines (only relevant if the ``-m`` is active, see
+:numref:`sec:modifylinebreaks`).
 
 ``noIndentBlock``: *fields*
 
@@ -818,108 +818,35 @@ blocks; each of these are shown in :numref:`tab:code-blocks`.
 
  .. _tab:code-blocks:
 
-m.3@
++---------------------------------+--------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| Code block                      | characters allowed in name                                                           | example                                                                               |
++=================================+======================================================================================+=======================================================================================+
+| environments                    | ``a-zA-Z@\*0-9_\\``                                                                  |                                                                                       |
++---------------------------------+--------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| optionalArguments               | *inherits* name from parent (e.g environment name)                                   |                                                                                       |
++---------------------------------+--------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| mandatoryArguments              | *inherits* name from parent (e.g environment name)                                   |                                                                                       |
++---------------------------------+--------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| commands                        | ``+a-zA-Z@\*0-9_\:``                                                                 | ``\mycommand``\ <arguments>                                                           |
++---------------------------------+--------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| keyEqualsValuesBracesBrackets   | ``a-zA-Z@\*0-9_\/.\h\{\}:\#-``                                                       | ``my key/.style=``\ <arguments>                                                       |
++---------------------------------+--------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| namedGroupingBracesBrackets     | ``a-zA-Z@\*><``                                                                      | ``in``\ <arguments>                                                                   |
++---------------------------------+--------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| UnNamedGroupingBracesBrackets   | *No name!*                                                                           | ``{`` or ``[`` or ``,`` or ``&`` or ``)`` or ``(`` or ``$`` followed by <arguments>   |
++---------------------------------+--------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| ifElseFi                        | ``@a-zA-Z`` but must begin with either ``\if`` of ``\@if``                           |                                                                                       |
++---------------------------------+--------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| items                           | User specified, see :numref:`lst:indentafteritems` and :numref:`lst:itemNames`       |                                                                                       |
++---------------------------------+--------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| specialBeginEnd                 | User specified, see :numref:`lst:specialBeginEnd`                                    |                                                                                       |
++---------------------------------+--------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| afterHeading                    | User specified, see :numref:`lst:indentAfterHeadings`                                |                                                                                       |
++---------------------------------+--------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
+| filecontents                    | User specified, see :numref:`lst:fileContentsEnvironments`                           |                                                                                       |
++---------------------------------+--------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
 
-m.4@
-
-m.2
-
-| Code block & characters allowed in name & example
-| environments & ``a-zA-Z@\*0-9_\\`` &
-
-::
-
-    \begin{myenv}
-    body of myenv
-    \end{myenv}
-      
-
-| 
-| optionalArguments & *inherits* name from parent (e.g environment name)
-  &
-
-::
-
-      
-
-| 
-| mandatoryArguments & *inherits* name from parent (e.g environment
-  name) &
-
-::
-
-    {
-    mand arg text
-    }
-      
-
-| 
-| commands & ``+a-zA-Z@\*0-9_\:`` &
-  ``\mycommand``\ :math:`\langle`\ *arguments\ :math:`\rangle`
-  keyEqualsValuesBracesBrackets & ``a-zA-Z@\*0-9_\/.\h\{\}:\#-`` &
-  ``my key/.style=``\ :math:`\langle`\ *arguments\ :math:`\rangle`
-  namedGroupingBracesBrackets & ``a-zA-Z@\*><`` &
-  ``in``\ :math:`\langle`\ *arguments\ :math:`\rangle`
-  UnNamedGroupingBracesBrackets & *No name!* & ``{`` or ``[`` or ``,``
-  or ``&`` or ``)`` or ``(`` or ``$`` followed by
-  :math:`\langle`\ *arguments\ :math:`\rangle`
-  ifElseFi & ``@a-zA-Z`` but must begin with either ``\if`` of ``\@if``
-  &****
-
-::
-
-    \ifnum...
-    ...
-    \else
-    ...
-    \fi
-      
-
-| 
-| items & User specified, see :numref:`lst:indentafteritems` and
-  :numref:`lst:itemNames` &
-
-::
-
-    \begin{enumerate}
-      \item ...
-    \end{enumerate}
-      
-
-| 
-| specialBeginEnd & User specified, see :numref:`lst:specialBeginEnd`
-  &
-
-::
-
-    \[
-      ...
-    \]
-      
-
-| 
-| afterHeading & User specified, see :numref:`lst:indentAfterHeadings`
-  &
-
-::
-
-    \chapter{title}
-      ...
-    \section{title}
-      
-
-| 
-| filecontents & User specified, see
-  :numref:`lst:fileContentsEnvironments` &
-
-::
-
-    \begin{filecontents}
-    ...
-    \end{filecontents}
-      
-
-| 
+Table: Code blocks known to ``latexindent.pl``
 
 We will refer to these code blocks in what follows.
 

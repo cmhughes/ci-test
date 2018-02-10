@@ -5,6 +5,8 @@ do
     echo "Processing ${f}.tex"
     pandoc --filter pandoc-citeproc cmhlistings.tex ${f}.tex -o ${f}.rst --bibliography latex-indent.bib --bibliography contributors.bib
     perl -pi -e 's|:numref:``(.*?)``|:numref:`$1`|g' ${f}.rst 
+    # re-align tables, if necessary
+    perl -p0i -e 's/^(\|.*\|)/my $table_row = $1; my @cells = split(m!\|!,$table_row); foreach (@cells){ my $matches =0; $matches = () = ($_ =~ m@\:numref\:@g);$_ .= ("  " x $matches); };join("|",@cells)."\|";/mgxe' ${f}.rst
     perl -pi -e 's|\.\. \\\_|\.\. \_|g' ${f}.rst 
     # some code blocks need special treatment
     perl -p0i -e 's/^::(?:\R|\h)*\{(.*?)\}\{((?:(?!(?:\{)).)*?)\}$/\.\. code-block:: latex\n   :caption: $1\n   :name: $2\n/msg' ${f}.rst

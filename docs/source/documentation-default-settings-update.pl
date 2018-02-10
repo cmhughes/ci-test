@@ -181,6 +181,8 @@ if(!$readTheDocsMode){
         $body =~ s/\\end\{cmhlistings\}/\\end\{verbatim\}/sg;
         $body =~ s/\\begin\{yaml\}/\\begin\{verbatim\}/sg;
         $body =~ s/\\end\{yaml\}/\\end\{verbatim\}/sg;
+        $body =~ s/\\lstinline/\\verb/sg;
+        $body =~ s/\$\\langle\$\\itshape\{arguments\}\$\\rangle\$/<arguments>/sg;
 
         # flagbox switch
         $body =~ s/\\flagbox/\\texttt/sg;
@@ -205,6 +207,16 @@ if(!$readTheDocsMode){
         # figure
         $body =~ s/\\input\{figure-schematic\}/\\includegraphics\{figure-schematic.png\}/s;
 
+        # tables can not contain listings 
+        $body =~ s/(\\begin\{tabular\})((?:(?!(?:\\begin\{tabular)).)*?)(\\end\{tabular\})/
+                    my $tabular_begin = $1;
+                    my $tabular_body = $2;
+                    my $tabular_end = $3;
+                    $tabular_body =~ s|\{m\{.3\\linewidth\}@\{\\hspace\{.25cm\}\}m\{.4\\linewidth\}@\{\\hspace\{.25cm\}\}m\{.2\\linewidth\}\}|\{lll\}|s;
+                    $tabular_body =~ s|\\begin\{lstlisting\}.*?\\end\{lstlisting\}||sg;
+                    $tabular_body =~ s|\\\\\\cmidrule|\n\\\\\\cmidrule|sg;
+                    $tabular_begin.$tabular_body.$tabular_end; /xesg;
+        
         # line numbers for defaulSettings
         for (@namesAndOffsets){
             my $firstLine = ${$_}{firstLine}; 
