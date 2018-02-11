@@ -120,11 +120,24 @@ if(!$readTheDocsMode){
         }
     }
 
+    # combine the subsec files
+    system("cat subsec-noAdditionalIndent-indentRules.tex >> sec-default-user-local.tex");
+    system("cat subsubsec-environments-and-their-arguments.tex >> sec-default-user-local.tex");
+    system("cat subsubsec-environments-with-items.tex >> sec-default-user-local.tex");
+    system("cat subsubsec-commands-with-arguments.tex >> sec-default-user-local.tex");
+    system("cat subsubsec-ifelsefi.tex >> sec-default-user-local.tex");
+    system("cat subsubsec-special.tex >> sec-default-user-local.tex");
+    system("cat subsubsec-headings.tex >> sec-default-user-local.tex");
+    system("cat subsubsec-no-add-remaining-code-blocks.tex >> sec-default-user-local.tex");
+    system("cat subsec-commands-and-their-options.tex >> sec-default-user-local.tex");
+
+    # loop through the .tex files
     foreach my $fileName ("sec-introduction.tex", 
                           "sec-demonstration.tex", 
                           "sec-how-to-use.tex", 
                           "sec-indent-config-and-settings.tex",
-                          "sec-default-user-local.tex",){
+                          "sec-default-user-local.tex",
+                          , ){
         @lines = q();
         # read the file
         open(MAINFILE, $fileName) or die "Could not open input file, $fileName";
@@ -139,21 +152,25 @@ if(!$readTheDocsMode){
         $body =~ s/\\cmhlistingsfromfile(.*)\*/\\cmhlistingsfromfile$1/mg;
         $body =~ s/\\cmhlistingsfromfile(.*?\})\[.*?\]/\\cmhlistingsfromfile$1/mg;
         $body =~ s/\\cmhlistingsfromfile\*?\[style=yaml-LST\]\*?/\\cmhlistingsfromfile/mg;
-        $body =~ s/\\cmhlistingsfromfile\*?\[\]\*?/\\cmhlistingsfromfile/mg;
-        $body =~ s/\\cmhlistingsfromfile\*?\[showtabs=true\]\*?/\\cmhlistingsfromfile/mg;
-        $body =~ s/\\cmhlistingsfromfile\*?\[showspaces=true\]\*?/\\cmhlistingsfromfile/mg;
+        $body =~ s/\\cmhlistingsfromfile\*?\[(columns=fixed)?,?(show(spaces|tabs)=true)?,?(show(spaces|tabs)=true)?\]\*?/\\cmhlistingsfromfile/mg;
+        $body =~ s/\\cmhlistingsfromfile/\n\n\\cmhlistingsfromfile/sg;
+        $body =~ s/(\\cmhlistingsfromfile.*)/$1\n\n/mg;
         $body =~ s/\\cmhlistingsfromfile\*?\[/\\cmhlistingsfromfilefour\[/mg;
         $body =~ s/\}\[\h*width=.*?\]\{/\}\{/sg;
         $body =~ s/\}\[\h*yaml-TCB.*?\]\{/\}\{/sg;
 
+        # get rid of wrapfigure stuff
         $body =~ s/\\begin\{wrapfigure\}.*$//mg;
         $body =~ s/\\end\{wrapfigure\}.*$//mg;
+
+        # defaultIndent: "" can cause problems for rst
+        $body =~ s/\\texttt\{defaultIndent: ""\}/\\verb!defaultIndent: ""!/sg;
 
         # total listings
         $body =~ s/\\totallstlistings/$crossReferences{totalListings}/s;
 
         # cross references
-        $body =~ s/\\[vVcC]ref\{(.*?)\}/
+        $body =~ s/\\[vVcC]?ref\{(.*?)\}/
                 # check for ,
                 my $internal = $1;
                 my $returnValue = q();
@@ -183,6 +200,7 @@ if(!$readTheDocsMode){
         $body =~ s/\\end\{yaml\}/\\end\{verbatim\}/sg;
         $body =~ s/\\lstinline/\\verb/sg;
         $body =~ s/\$\\langle\$\\itshape\{arguments\}\$\\rangle\$/<arguments>/sg;
+        $body =~ s/\$\\langle\$(.*?)\$\\rangle\$/<$1>/sg;
 
         # flagbox switch
         $body =~ s/\\flagbox/\\texttt/sg;
@@ -236,9 +254,9 @@ if(!$readTheDocsMode){
         open(OUTPUTFILE,">",$fileName);
         print OUTPUTFILE $body;
         close(OUTPUTFILE);
+
+        system("./pandoc-tex-files.sh $fileName");
     }
 
-    system('./pandoc-tex-files.sh');
-    system("git checkout sec*.tex");
 }
 exit; 
