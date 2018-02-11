@@ -124,15 +124,24 @@ if(!$readTheDocsMode){
     system("convert figure-schematic.pdf figure-schematic.png");
 
     # combine the subsec files
-    system("cat subsec-noAdditionalIndent-indentRules.tex >> sec-default-user-local.tex");
-    system("cat subsubsec-environments-and-their-arguments.tex >> sec-default-user-local.tex");
-    system("cat subsubsec-environments-with-items.tex >> sec-default-user-local.tex");
-    system("cat subsubsec-commands-with-arguments.tex >> sec-default-user-local.tex");
-    system("cat subsubsec-ifelsefi.tex >> sec-default-user-local.tex");
-    system("cat subsubsec-special.tex >> sec-default-user-local.tex");
-    system("cat subsubsec-headings.tex >> sec-default-user-local.tex");
-    system("cat subsubsec-no-add-remaining-code-blocks.tex >> sec-default-user-local.tex");
-    system("cat subsec-commands-and-their-options.tex >> sec-default-user-local.tex");
+    foreach("subsec-noAdditionalIndent-indentRules.tex",
+            "subsubsec-environments-and-their-arguments.tex",
+            "subsubsec-environments-with-items.tex",
+            "subsubsec-commands-with-arguments.tex",
+            "subsubsec-ifelsefi.tex",
+            "subsubsec-special.tex",
+            "subsubsec-headings.tex",
+            "subsubsec-no-add-remaining-code-blocks.tex",
+            "subsec-commands-and-their-options.tex",
+          ){
+       system("cat $_ >> sec-default-user-local.tex");
+    }
+
+    foreach("subsec-partnering-poly-switches.tex",
+            "subsec-conflicting-poly-switches.tex",
+          ){
+       system("cat $_ >> sec-the-m-switch.tex");
+    }
 
     # loop through the .tex files
     foreach my $fileName ("sec-introduction.tex", 
@@ -141,6 +150,7 @@ if(!$readTheDocsMode){
                           "sec-indent-config-and-settings.tex",
                           "sec-default-user-local.tex",
                           "sec-the-m-switch.tex",
+                          "sec-conclusions-know-limitations.tex",
                           , ){
         @lines = q();
         # read the file
@@ -169,6 +179,8 @@ if(!$readTheDocsMode){
 
         # defaultIndent: "" can cause problems for rst
         $body =~ s/\\texttt\{defaultIndent: ""\}/\\verb!defaultIndent: ""!/sg;
+
+        $body =~ s/\\lstinline\[breaklines=true\]/\\verb/sg;
 
         # total listings
         $body =~ s/\\totallstlistings/$crossReferences{totalListings}/s;

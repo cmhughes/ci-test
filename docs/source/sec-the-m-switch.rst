@@ -1502,6 +1502,273 @@ and ‘comment-marked’ code blocks (:numref:`lst:alignmentmarkup`) can
 
 Table: Poly-switch mappings for all code-block types
 
+Partnering ``BodyStartsOnOwnLine`` with argument-based poly-switches
+--------------------------------------------------------------------
+
+Some poly-switches need to be partnered together; in particular, when
+line breaks involving the *first* argument of a code block need to be
+accounted for using both ``BodyStartsOnOwnLine`` (or its equivalent, see
+:numref:`tab:poly-switch-mapping`) and ``LCuBStartsOnOwnLine`` for
+mandatory arguments, and ``LSqBStartsOnOwnLine`` for optional arguments.
+
+Let’s begin with the code in :numref:`lst:mycommand1` and the YAML
+settings in :numref:`lst:mycom-mlb1`; with reference to
+:numref:`tab:poly-switch-mapping`, the key
+``CommandNameFinishesWithLineBreak`` is an alias for
+``BodyStartsOnOwnLine``.
+
+ .. literalinclude:: demonstrations/mycommand1.tex
+ 	:caption: ``mycommand1.tex`` 
+ 	:name: lst:mycommand1
+
+Upon running the command
+
+::
+
+    latexindent.pl -m -l=mycom-mlb1.yaml mycommand1.tex
+
+we obtain :numref:`lst:mycommand1-mlb1`; note that the *second*
+mandatory argument beginning brace ``{`` has had its leading line break
+removed, but that the *first* brace has not.
+
+ .. literalinclude:: demonstrations/mycommand1-mlb1.tex
+ 	:caption: ``mycommand1.tex`` using :numref:`lst:mycom-mlb1` 
+ 	:name: lst:mycommand1-mlb1
+
+ .. literalinclude:: demonstrations/mycom-mlb1.yaml
+ 	:caption: ``mycom-mlb1.yaml`` 
+ 	:name: lst:mycom-mlb1
+
+Now let’s change the YAML file so that it is as in
+:numref:`lst:mycom-mlb2`; upon running the analogous command to that
+given above, we obtain :numref:`lst:mycommand1-mlb2`; both beginning
+braces ``{`` have had their leading line breaks removed.
+
+ .. literalinclude:: demonstrations/mycommand1-mlb2.tex
+ 	:caption: ``mycommand1.tex`` using :numref:`lst:mycom-mlb2` 
+ 	:name: lst:mycommand1-mlb2
+
+ .. literalinclude:: demonstrations/mycom-mlb2.yaml
+ 	:caption: ``mycom-mlb2.yaml`` 
+ 	:name: lst:mycom-mlb2
+
+Now let’s change the YAML file so that it is as in
+:numref:`lst:mycom-mlb3`; upon running the analogous command to that
+given above, we obtain :numref:`lst:mycommand1-mlb3`.
+
+ .. literalinclude:: demonstrations/mycommand1-mlb3.tex
+ 	:caption: ``mycommand1.tex`` using :numref:`lst:mycom-mlb3` 
+ 	:name: lst:mycommand1-mlb3
+
+ .. literalinclude:: demonstrations/mycom-mlb3.yaml
+ 	:caption: ``mycom-mlb3.yaml`` 
+ 	:name: lst:mycom-mlb3
+
+Conflicting poly-switches: sequential code blocks
+-------------------------------------------------
+
+It is very easy to have conflicting poly-switches; if we use the example
+from :numref:`lst:mycommand1`, and consider the YAML settings given in
+:numref:`lst:mycom-mlb4`. The output from running
+
+::
+
+    latexindent.pl -m -l=mycom-mlb4.yaml mycommand1.tex
+
+is given in :numref:`lst:mycom-mlb4`.
+
+ .. literalinclude:: demonstrations/mycommand1-mlb4.tex
+ 	:caption: ``mycommand1.tex`` using :numref:`lst:mycom-mlb4` 
+ 	:name: lst:mycommand1-mlb4
+
+ .. literalinclude:: demonstrations/mycom-mlb4.yaml
+ 	:caption: ``mycom-mlb4.yaml`` 
+ 	:name: lst:mycom-mlb4
+
+Studying :numref:`lst:mycom-mlb4`, we see that the two poly-switches
+are at opposition with one another:
+
+-  on the one hand, ``LCuBStartsOnOwnLine`` should *not* start on its
+   own line (as poly-switch is set to :math:`-1`);
+
+-  on the other hand, ``RCuBFinishesWithLineBreak`` *should* finish with
+   a line break.
+
+So, which should win the conflict? As demonstrated in
+:numref:`lst:mycommand1-mlb4`, it is clear that
+``LCuBStartsOnOwnLine`` won this conflict, and the reason is that *the
+second argument was processed after the first* – in general, the most
+recently-processed code block and associated poly-switch takes priority.
+
+We can explore this further by considering the YAML settings in
+:numref:`lst:mycom-mlb5`; upon running the command
+
+::
+
+    latexindent.pl -m -l=mycom-mlb5.yaml mycommand1.tex
+
+we obtain the output given in :numref:`lst:mycommand1-mlb5`.
+
+ .. literalinclude:: demonstrations/mycommand1-mlb5.tex
+ 	:caption: ``mycommand1.tex`` using :numref:`lst:mycom-mlb5` 
+ 	:name: lst:mycommand1-mlb5
+
+ .. literalinclude:: demonstrations/mycom-mlb5.yaml
+ 	:caption: ``mycom-mlb5.yaml`` 
+ 	:name: lst:mycom-mlb5
+
+As previously, the most-recently-processed code block takes priority –
+as before, the second (i.e, *last*) argument. Exploring this further, we
+consider the YAML settings in :numref:`lst:mycom-mlb6`, which give
+associated output in :numref:`lst:mycommand1-mlb6`.
+
+ .. literalinclude:: demonstrations/mycommand1-mlb6.tex
+ 	:caption: ``mycommand1.tex`` using :numref:`lst:mycom-mlb6` 
+ 	:name: lst:mycommand1-mlb6
+
+ .. literalinclude:: demonstrations/mycom-mlb6.yaml
+ 	:caption: ``mycom-mlb6.yaml`` 
+ 	:name: lst:mycom-mlb6
+
+Note that a ``%`` *has* been added to the trailing first ``}``; this is
+because:
+
+-  while processing the *first* argument, the trailing line break has
+   been removed (``RCuBFinishesWithLineBreak`` set to :math:`-1`);
+
+-  while processing the *second* argument, ``latexindent.pl`` finds that
+   it does *not* begin on its own line, and so because
+   ``LCuBStartsOnOwnLine`` is set to :math:`2`, it adds a comment,
+   followed by a line break.
+
+Conflicting poly-switches: nested code blocks
+---------------------------------------------
+
+Now let’s consider an example when nested code blocks have conflicting
+poly-switches; we’ll use the code in :numref:`lst:nested-env`, noting
+that it contains nested environments.
+
+ .. literalinclude:: demonstrations/nested-env.tex
+ 	:caption: ``nested-env.tex`` 
+ 	:name: lst:nested-env
+
+Let’s use the YAML settings given in
+:numref:`lst:nested-env-mlb1-yaml`, which upon running the command
+
+::
+
+    latexindent.pl -m -l=nested-env-mlb1.yaml nested-env.tex
+            
+
+gives the output in :numref:`lst:nested-env-mlb1`.
+
+ .. literalinclude:: demonstrations/nested-env-mlb1.tex
+ 	:caption: ``nested-env.tex`` using :numref:`lst:nested-env-mlb1-yaml` 
+ 	:name: lst:nested-env-mlb1
+
+ .. literalinclude:: demonstrations/nested-env-mlb1.yaml
+ 	:caption: ``nested-env-mlb1.yaml`` 
+ 	:name: lst:nested-env-mlb1-yaml
+
+In :numref:`lst:nested-env-mlb1`, let’s first of all note that both
+environments have received the appropriate (default) indentation;
+secondly, note that the poly-switch ``EndStartsOnOwnLine`` appears to
+have won the conflict, as ``\end{one}`` has had its leading line break
+removed.
+
+To understand it, let’s talk about the three basic phases
+
+ .. _page:phases:
+
+of ``latexindent.pl``:
+
+#. Phase 1: packing, in which code blocks are replaced with unique ids,
+   working from *the inside to the outside*, and then sequentially – for
+   example, in :numref:`lst:nested-env`, the ``two`` environment is
+   found *before* the ``one`` environment; if the -m switch is active,
+   then during this phase:
+
+   -  line breaks at the beginning of the ``body`` can be added (if
+      ``BodyStartsOnOwnLine`` is :math:`1` or :math:`2`) or removed (if
+      ``BodyStartsOnOwnLine`` is :math:`-1`);
+
+   -  line breaks at the end of the body can be added (if
+      ``EndStartsOnOwnLine`` is :math:`1` or :math:`2`) or removed (if
+      ``EndStartsOnOwnLine`` is :math:`-1`);
+
+   -  line breaks after the end statement can be added (if
+      ``EndFinishesWithLineBreak`` is :math:`1` or :math:`2`).
+
+#. Phase 2: indentation, in which white space is added to the begin,
+   body, and end statements;
+
+#. Phase 3: unpacking, in which unique ids are replaced by their
+   *indented* code blocks; if the -m switch is active, then during this
+   phase,
+
+   -  line breaks before ``begin`` statements can be added or removed
+      (depending upon ``BeginStartsOnOwnLine``);
+
+   -  line breaks after *end* statements can be removed but *NOT* added
+      (see ``EndFinishesWithLineBreak``).
+
+With reference to :numref:`lst:nested-env-mlb1`, this means that
+during Phase 1:
+
+-  the ``two`` environment is found first, and the line break ahead of
+   the ``\end{two}`` statement is removed because ``EndStartsOnOwnLine``
+   is set to :math:`-1`. Importantly, because, *at this stage*,
+   ``\end{two}`` *does* finish with a line break,
+   ``EndFinishesWithLineBreak`` causes no action.
+
+-  next, the ``one`` environment is found; the line break ahead of
+   ``\end{one}`` is removed because ``EndStartsOnOwnLine`` is set to
+   :math:`-1`.
+
+The indentation is done in Phase 2; in Phase 3 *there is no option to
+add a line break after the ``end`` statements*. We can justify this by
+remembering that during Phase 3, the ``one`` environment will be found
+and processed first, followed by the ``two`` environment. If the ``two``
+environment were to add a line break after the ``\end{two}`` statement,
+then ``latexindent.pl`` would have no way of knowing how much
+indentation to add to the subsequent text (in this case, ``\end{one}``).
+
+We can explore this further using the poly-switches in
+:numref:`lst:nested-env-mlb2`; upon running the command
+
+::
+
+    latexindent.pl -m -l=nested-env-mlb2.yaml nested-env.tex
+            
+
+we obtain the output given in :numref:`lst:nested-env-mlb2-output`.
+
+ .. literalinclude:: demonstrations/nested-env-mlb2.tex
+ 	:caption: ``nested-env.tex`` using :numref:`lst:nested-env-mlb2` 
+ 	:name: lst:nested-env-mlb2-output
+
+ .. literalinclude:: demonstrations/nested-env-mlb2.yaml
+ 	:caption: ``nested-env-mlb2.yaml`` 
+ 	:name: lst:nested-env-mlb2
+
+During Phase 1:
+
+-  the ``two`` environment is found first, and the line break ahead of
+   the ``\end{two}`` statement is not changed because
+   ``EndStartsOnOwnLine`` is set to :math:`1`. Importantly, because, *at
+   this stage*, ``\end{two}`` *does* finish with a line break,
+   ``EndFinishesWithLineBreak`` causes no action.
+
+-  next, the ``one`` environment is found; the line break ahead of
+   ``\end{one}`` is already present, and no action is needed.
+
+The indentation is done in Phase 2, and then in Phase 3, the ``one``
+environment is found and processed first, followed by the ``two``
+environment. *At this stage*, the ``two`` environment finds
+``EndFinishesWithLineBreak`` is :math:`-1`, so it removes the trailing
+line break; remember, at this point, ``latexindent.pl`` has completely
+finished with the ``one`` environment.
+
 .. raw:: html
 
    <div id="refs" class="references">
