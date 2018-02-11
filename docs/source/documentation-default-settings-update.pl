@@ -140,6 +140,7 @@ if(!$readTheDocsMode){
                           "sec-how-to-use.tex", 
                           "sec-indent-config-and-settings.tex",
                           "sec-default-user-local.tex",
+                          "sec-the-m-switch.tex",
                           , ){
         @lines = q();
         # read the file
@@ -203,6 +204,7 @@ if(!$readTheDocsMode){
         $body =~ s/\\end\{yaml\}/\\end\{verbatim\}/sg;
         $body =~ s/\\lstinline/\\verb/sg;
         $body =~ s/\$\\langle\$\\itshape\{arguments\}\$\\rangle\$/<arguments>/sg;
+        $body =~ s/\$\\langle\$\\itshape\{braces\/brackets\}\$\\rangle\$/<braces\/brackets>/sg;
         $body =~ s/\$\\langle\$(.*?)\$\\rangle\$/<$1>/sg;
 
         # flagbox switch
@@ -221,15 +223,15 @@ if(!$readTheDocsMode){
         # move figure label before \\begin{figure}
         $body =~ s/(\\begin\{figure.*?)(\\label\{.*?\})/$2\n\n$1/s;
 
-        # 
-        $body =~ s/(\\label\{.*?\})/\n\n$1\n\n/sg;
-        $body =~ s/\\label/\\cmhlabel/sg;
-
         # figure
         $body =~ s/\\input\{figure-schematic\}/\\includegraphics\{figure-schematic.png\}/s;
+        
+        # longtable
+        $body =~ s/\\begin\{longtable\}/\\begin\{table\}\n\\begin\{tabular\}/sg;
+        $body =~ s/\\end\{longtable\}/\\end\{tabular\}\n\\end\{table\}\n\n/sg;
 
         # tables can not contain listings 
-        $body =~ s/(\\begin\{tabular\})((?:(?!(?:\\begin\{tabular)).)*?)(\\end\{tabular\})/
+        $body =~ s/(?!\\lstinline!)(\\begin\{tabular\})((?:(?!(?:\\begin\{tabular)).)*?)(\\end\{tabular\})/
                     my $tabular_begin = $1;
                     my $tabular_body = $2;
                     my $tabular_end = $3;
@@ -241,8 +243,17 @@ if(!$readTheDocsMode){
                                         $verb_body=~s@\h*$@@sg;
                                         "\\verb!".$verb_body."!";|sgex;
                     $tabular_body =~ s|\\\\\\cmidrule|\n\\\\\\cmidrule|sg;
-                    $tabular_begin.$tabular_body.$tabular_end; /xesg;
+                    my $caption = q();
+                    if ($tabular_body =~ m|\\caption.*$|m){
+                        $tabular_body =~ s|(\\caption.*)$||m;
+                        $caption = $1;
+                    }
+                    $caption.$tabular_begin.$tabular_body.$tabular_end; /xesg;
         
+        # 
+        $body =~ s/(\\label\{.*?\})/\n\n$1\n\n/sg;
+        $body =~ s/\\label/\\cmhlabel/sg;
+
         # line numbers for defaulSettings
         for (@namesAndOffsets){
             my $firstLine = ${$_}{firstLine}; 
@@ -252,6 +263,28 @@ if(!$readTheDocsMode){
 
         # can't have back to back verbatim
         $body =~ s/(\\end\{verbatim\}(?:\h|\R)*)(\\cmhlistings.*?)$((?:\h|\R)*[a-zA-Z]+\h)/$1\n\n$3\n\n$2\n\n/smg; 
+
+        # the spade, heart, diamonds and club issues
+        $body =~ s|\(\*@\$\\BeginStartsOnOwnLine\$@\*\)|♠|gs;
+        $body =~ s|\$\\BeginStartsOnOwnLine\$|♠|gs;
+
+        $body =~ s|\(\*@\$\\ElseStartsOnOwnLine\$@\*\)|★|gs;
+        $body =~ s|\$\\ElseStartsOnOwnLine\$|★|gs;
+
+        $body =~ s|\(\*@\$\\BodyStartsOnOwnLine\$@\*\)|♥|gs;
+        $body =~ s|\$\\BodyStartsOnOwnLine\$|♥|gs;
+
+        $body =~ s|\(\*@\$\\EndStartsOnOwnLine\$@\*\)|◆|gs;
+        $body =~ s|\$\\EndStartsOnOwnLine\$|◆|gs;
+
+        $body =~ s|\(\*@\$\\EndFinishesWithLineBreak\$@\*\)|♣|gs;
+        $body =~ s|\$\\EndFinishesWithLineBreak\$|♣|gs;
+
+        $body =~ s|\(\*@\$\\ElseFinishesWithLineBreak\$@\*\)|□|gs;
+        $body =~ s|\$\\ElseFinishesWithLineBreak\$|□|gs;
+
+        $body =~ s|\(\*@\$\\EqualsStartsOnOwnLine\$@\*\)|●|gs;
+        $body =~ s|\$\\EqualsStartsOnOwnLine\$|●|gs;
 
         # output the file
         open(OUTPUTFILE,">",$fileName);

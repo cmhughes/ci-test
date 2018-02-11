@@ -22,7 +22,7 @@ perl -p0i -e 's/\\texttt\{(.*?)\}/``$1``/sg' ${mainFile}.rst
 # remove line breaks from :alt: text
 perl -p0i -e 's/(:alt:.*?)\R{2}(\h*)/\n\n$2/gs' ${mainFile}.rst
 # remove line breaks from :caption: text
-perl -p0i -e 's/(:caption:.*?)(^\h+:name:)/my $caption=$1; my $name=$2; $caption=~ s|\R| |sg; $caption."\n".$name;/emgs' ${mainFile}.rst
+perl -p0i -e 's/(:caption:.*?)(^\h+:name:)/my $caption=$1; my $name=$2; $caption=~ s|\h*\R| |sg; $caption."\n".$name;/emgs' ${mainFile}.rst
 # some literalincludes can have spurious line breaks
 perl -p0i -e 's/^\h*(\.\. literalinclude::)\h*\R/$1 /gsm' ${mainFile}.rst
 

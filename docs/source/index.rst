@@ -14,3 +14,4 @@
    sec-how-to-use
    sec-indent-config-and-settings
    sec-default-user-local
+   sec-the-m-switch
