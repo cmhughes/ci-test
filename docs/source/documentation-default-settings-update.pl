@@ -120,6 +120,9 @@ if(!$readTheDocsMode){
         }
     }
 
+    # convert the images
+    system("convert figure-schematic.pdf figure-schematic.png");
+
     # combine the subsec files
     system("cat subsec-noAdditionalIndent-indentRules.tex >> sec-default-user-local.tex");
     system("cat subsubsec-environments-and-their-arguments.tex >> sec-default-user-local.tex");
