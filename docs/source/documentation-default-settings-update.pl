@@ -156,6 +156,7 @@ if(!$readTheDocsMode){
                           "sec-default-user-local.tex",
                           "sec-the-m-switch.tex",
                           "sec-conclusions-know-limitations.tex",
+                          "references.tex",
                           "appendices.tex",
                           , ){
         @lines = q();
@@ -164,6 +165,11 @@ if(!$readTheDocsMode){
         push(@lines,$_) while(<MAINFILE>);
         close(MAINFILE);
         my $body = join("",@lines);
+        
+        # references
+        $body =~ s/(\\section\{References\})(.*)(\\label\{.*?\})/$1$3$2/s;
+        $body =~ s/\\printbibliography\[.*?\]/\\printbibliography/sg;
+        $body =~ s/\\printbibliography.*\\printbibliography/\\printbibliography/sg;
 
         # make the substitutions
         $body =~ s/\\begin\{minipage\}\{.*?\}//sg;

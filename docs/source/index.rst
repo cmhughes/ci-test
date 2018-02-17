@@ -16,4 +16,5 @@
    sec-default-user-local
    sec-the-m-switch
    sec-conclusions-know-limitations
+   references
    appendices
