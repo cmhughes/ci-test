@@ -1,4 +1,6 @@
- .. _sec:indentconfig:
+.. label follows
+
+.. _sec:indentconfig:
 
 ``indentconfig.yaml``, local settings and the ``-y`` switch 
 ============================================================
@@ -87,7 +89,9 @@ from ``defaultSettings.yaml`` when you create your first
 If ``latexindent.pl`` can not read your ``.yaml`` file it will tell you
 so in ``indent.log``.
 
- .. _sec:localsettings:
+.. label follows
+
+.. _sec:localsettings:
 
 ``localSettings.yaml``
 ----------------------
@@ -134,7 +138,9 @@ You can make sure that your settings file has been loaded by checking
 warning, otherwise you’ll get confirmation that ``latexindent.pl`` has
 read your settings file.
 
- .. _sec:yamlswitch:
+.. label follows
+
+.. _sec:yamlswitch:
 
 The ``-y|yaml`` switch
 ----------------------
@@ -168,7 +174,9 @@ for example, settings loaded using the ``-l`` switch; for example,
 Any settings specified using the ``-y`` switch will be loaded *after*
 any specified using ``indentconfig.yaml`` and the ``-l`` switch.
 
- .. _sec:loadorder:
+.. label follows
+
+.. _sec:loadorder:
 
 Settings load order
 -------------------
@@ -191,7 +199,9 @@ Settings load order
 
 A visual representation of this is given in :numref:`fig:loadorder`.
 
- .. _fig:loadorder:
+.. label follows
+
+.. _fig:loadorder:
 
 .. figure:: figure-schematic.png
    

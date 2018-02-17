@@ -14,7 +14,8 @@ pandoc --filter pandoc-citeproc cmhlistings.tex ${mainFile}.tex -o ${mainFile}.r
 perl -pi -e 's|:numref:``(.*?)``|:numref:`$1`|g' ${mainFile}.rst 
 # re-align tables, if necessary
 perl -p0i -e 's/^(\|.*\|)/my $table_row = $1; my @cells = split(m!\|!,$table_row); foreach (@cells){ my $matches =0; $matches = () = ($_ =~ m@\:numref\:@g);$_ .= ("  " x $matches); };join("|",@cells)."\|";/mgxe' ${mainFile}.rst
-perl -pi -e 's|\.\. \\\_|\.\. \_|g' ${mainFile}.rst 
+perl -pi -e 's|^\h*\.\. \\\_|\.\. \_|mg' ${mainFile}.rst 
+perl -pi -e 's|^(\h*\.\. _)|.. label follows\n\n$1|mg' ${mainFile}.rst 
 # some code blocks need special treatment
 perl -p0i -e 's/^::(?:\R|\h)*\{(.*?)\}\{((?:(?!(?:\{)).)*?)\}$/\.\. code-block:: latex\n   :caption: $1\n   :name: $2\n/msg' ${mainFile}.rst
 # and this can lead to \\texttt still being present in .rst

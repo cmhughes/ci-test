@@ -1,4 +1,6 @@
- .. _sec:modifylinebreaks:
+.. label follows
+
+.. _sec:modifylinebreaks:
 
 The ``-m`` (``modifylinebreaks``) switch
 ========================================
@@ -197,7 +199,9 @@ then we obtain the output in :numref:`lst:textwrap4-mod2`.
    indented code will likely exceed any maximum value set in the
    ``columns`` field.
 
- .. _sec:onesentenceperline:
+.. label follows
+
+.. _sec:onesentenceperline:
 
 ``oneSentencePerLine``: modifying line breaks for sentences
 -----------------------------------------------------------
@@ -859,7 +863,9 @@ routine has stopped at ``\begin{myenv}`` because, by default,
  	:caption: ``sl-stop4-comment.tex`` 
  	:name: lst:sl-stop4-comment
 
- .. _sec:poly-switches:
+.. label follows
+
+.. _sec:poly-switches:
 
 Poly-switches
 -------------
@@ -893,7 +899,9 @@ In the above, *<part of thing>* refers to either the *begin statement*,
 ``latexindent.pl`` searches first of all for per-name settings, and then
 followed by global per-thing settings.
 
- .. _sec:modifylinebreaks-environments:
+.. label follows
+
+.. _sec:modifylinebreaks-environments:
 
 modifyLineBreaks for environments
 ---------------------------------
@@ -1414,7 +1422,9 @@ that, by design, line breaks involving ``verbatim``, ``filecontents``
 and ‘comment-marked’ code blocks (:numref:`lst:alignmentmarkup`) can
 *not* be modified using ``latexindent.pl``.
 
- .. _tab:poly-switch-mapping:
+.. label follows
+
+.. _tab:poly-switch-mapping:
 
 | 
 
@@ -1678,7 +1688,9 @@ removed.
 
 To understand it, let’s talk about the three basic phases
 
- .. _page:phases:
+.. label follows
+
+.. _page:phases:
 
 of ``latexindent.pl``:
 

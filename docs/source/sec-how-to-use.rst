@@ -25,7 +25,9 @@ will need a few standard Perl modules – see
 :numref:`sec:requiredmodules` for details; in particular, note that a
 module installer helper script is shipped with ``latexindent.pl``.
 
- .. _sec:commandline:
+.. label follows
+
+.. _sec:commandline:
 
 From the command line
 ---------------------
@@ -181,7 +183,9 @@ Silent mode: no output will be given to the terminal.
 
 ``-t, –trace``
 
- .. _page:traceswitch:
+.. label follows
+
+.. _page:traceswitch:
 
 ::
 
@@ -211,7 +215,9 @@ script will be affected).
 
 ``-l, –local[=myyaml.yaml,other.yaml,...]``
 
- .. _page:localswitch:
+.. label follows
+
+.. _page:localswitch:
 
 ::
 
@@ -295,7 +301,9 @@ You may also choose to omit the ``yaml`` extension, such as
 
 ``-y, –yaml=yaml settings``
 
- .. _page:yamlswitch:
+.. label follows
+
+.. _page:yamlswitch:
 
 ::
 
@@ -418,7 +426,9 @@ Once you have finished typing your input, you can press
 
 to signify that your input has finished.
 
- .. _sec:arara:
+.. label follows
+
+.. _sec:arara:
 
 From ``arara``
 --------------
@@ -452,7 +462,9 @@ completeness :numref:`tab:orbsandswitches` shows the relationship
 between ``arara`` directive arguments and the switches given in
 :numref:`sec:commandline`.
 
- .. _tab:orbsandswitches:
+.. label follows
+
+.. _tab:orbsandswitches:
 
 +--------------------------------+----------+
 | ``arara`` directive argument   | switch   |

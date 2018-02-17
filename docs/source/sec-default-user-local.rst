@@ -1,4 +1,6 @@
- .. _sec:defuseloc:
+.. label follows
+
+.. _sec:defuseloc:
 
 defaultSettings.yaml
 ====================
@@ -59,7 +61,9 @@ files: ``myfile.bak1``, ``myfile.bak2``, etc.
 
 ``onlyOneBackUp``: *integer*
 
- .. _page:onlyonebackup:
+.. label follows
+
+.. _page:onlyonebackup:
 
 If you don’t want a backup for every time that you call
 ``latexindent.pl`` (so you don’t want ``myfile.bak1``, ``myfile.bak2``,
@@ -195,7 +199,9 @@ as many spaces (possibly none) as you like; see
 
 ``removeTrailingWhitespace``: *fields*
 
- .. _yaml:removeTrailingWhitespace:
+.. label follows
+
+.. _yaml:removeTrailingWhitespace:
 
  .. literalinclude:: ../defaultSettings.yaml
  	:caption: removeTrailingWhitespace 
@@ -289,7 +295,9 @@ can *remove* all indentation by setting ``defaultIndent: ""``.
 
 ``lookForAlignDelims``: *fields*
 
- .. _yaml:lookforaligndelims:
+.. label follows
+
+.. _yaml:lookforaligndelims:
 
 .. code-block:: latex
    :caption: ``lookForAlignDelims`` (basic) 
@@ -601,13 +609,17 @@ after each ``item``. A demonstration is given in
   :numref:`lst:mysettings`
 | in particular
 
- .. _page:examsettings:
+.. label follows
+
+.. _page:examsettings:
 
 .)
 
 ``specialBeginEnd``: *fields*
 
- .. _yaml:specialBeginEnd:
+.. label follows
+
+.. _yaml:specialBeginEnd:
 
 The fields specified \*specialBeginEnd in ``specialBeginEnd`` are, in
 their default state, focused on math mode begin and end statements, but
@@ -815,7 +827,9 @@ found in ``verbatimEnvironments`` (see
 :numref:`lst:verbatimEnvironments`) or ``noIndentBlock`` (see
 :numref:`lst:noIndentBlock`).
 
- .. _subsubsec:code-blocks:
+.. label follows
+
+.. _subsubsec:code-blocks:
 
 The code blocks known ``latexindent.pl``
 ----------------------------------------
@@ -823,7 +837,9 @@ The code blocks known ``latexindent.pl``
 As of Version 3.0, ``latexindent.pl`` processes documents using code
 blocks; each of these are shown in :numref:`tab:code-blocks`.
 
- .. _tab:code-blocks:
+.. label follows
+
+.. _tab:code-blocks:
 
 +---------------------------------+--------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------+
 | Code block                      | characters allowed in name                                                           | example                                                                               |
@@ -857,7 +873,9 @@ Table: Code blocks known to ``latexindent.pl``
 
 We will refer to these code blocks in what follows.
 
- .. _sec:noadd-indent-rules:
+.. label follows
+
+.. _sec:noadd-indent-rules:
 
 ``noAdditionalIndent`` and ``indentRules``
 ------------------------------------------
@@ -887,7 +905,9 @@ We now present details for the different type of code blocks known to
 ``latexindent.pl``, as detailed in :numref:`tab:code-blocks`; for
 reference, there follows a list of the code blocks covered.
 
- .. _subsubsec:env-and-their-args:
+.. label follows
+
+.. _subsubsec:env-and-their-args:
 
 Environments and their arguments
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1326,7 +1346,9 @@ such ``item`` commands without their own individual
 ``noAdditionalIndent`` or ``indentRules`` settings would behave as in
 these listings.
 
- .. _subsubsec:commands-arguments:
+.. label follows
+
+.. _subsubsec:commands-arguments:
 
 Commands with arguments
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -1424,7 +1446,9 @@ This is because, by default, ``noAdditionalIndentGlobal`` for
 ``commands`` is set to ``1`` by default; this can be easily fixed as in
 :numref:`lst:mycommand-noAdd5` and :numref:`lst:mycommand-noAdd6`.
 
- .. _page:command:noAddGlobal:
+.. label follows
+
+.. _page:command:noAddGlobal:
 
  .. literalinclude:: demonstrations/mycommand-noAdd5.yaml
  	:caption: ``mycommand-noAdd5.yaml`` 
@@ -1625,7 +1649,9 @@ have received a single space of indentation.
  	:caption: ``special1.tex`` using :numref:`lst:special-indent-rules-global` 
  	:name: lst:special1-output-indent-rules-global
 
- .. _subsubsec-headings-no-add-indent-rules:
+.. label follows
+
+.. _subsubsec-headings-no-add-indent-rules:
 
 ``afterHeading`` code blocks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1903,7 +1929,9 @@ functions of the fields given in
  	:linenos:
  	:lineno-start: 296
 
- .. _subsec:commands-string-between:
+.. label follows
+
+.. _subsec:commands-string-between:
 
 Commands and the strings between their arguments
 ------------------------------------------------

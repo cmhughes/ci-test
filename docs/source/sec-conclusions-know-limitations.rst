@@ -1,4 +1,6 @@
- .. _sec:knownlimitations:
+.. label follows
+
+.. _sec:knownlimitations:
 
 Conclusions and known limitations
 =================================

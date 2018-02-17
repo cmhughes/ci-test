@@ -142,6 +142,11 @@ if(!$readTheDocsMode){
           ){
        system("cat $_ >> sec-the-m-switch.tex");
     }
+    
+    # appendix
+    system("perl -p0i -e 's/\\\\subsection/\\\\subsubsection/sg' appendices.tex");
+    system("perl -p0i -e 's/\\\\section/\\\\subsection/sg' appendices.tex");
+    system("perl -p0i -e 's/\\\\appendix/\\\\section\{Appendices\}/sg' appendices.tex");
 
     # loop through the .tex files
     foreach my $fileName ("sec-introduction.tex", 
@@ -151,6 +156,7 @@ if(!$readTheDocsMode){
                           "sec-default-user-local.tex",
                           "sec-the-m-switch.tex",
                           "sec-conclusions-know-limitations.tex",
+                          "appendices.tex",
                           , ){
         @lines = q();
         # read the file
@@ -211,8 +217,8 @@ if(!$readTheDocsMode){
         $body =~ s/\\begin\{commandshell\}/\\begin\{verbatim\}/sg;
         $body =~ s/\\end\{commandshell\}/\\end\{verbatim\}/sg;
         $body =~ s/\\begin\{cmhlistings\}/\\begin\{verbatim\}/sg;
-        $body =~ s/\\end\{cmhlistings\}/\\end\{verbatim\}/sg;
-        $body =~ s/\\begin\{yaml\}/\\begin\{verbatim\}/sg;
+        $body =~ s/\\end\{cmhlistings\}(\[.*?\])?/\\end\{verbatim\}/sg;
+        $body =~ s/\\begin\{yaml\}(\[.*?\])?(\{.*?\})(\[.*?\])?/\\begin\{verbatim\}$2/sg;
         $body =~ s/\\end\{yaml\}/\\end\{verbatim\}/sg;
         $body =~ s/\\lstinline/\\verb/sg;
         $body =~ s/\$\\langle\$\\itshape\{arguments\}\$\\rangle\$/<arguments>/sg;
