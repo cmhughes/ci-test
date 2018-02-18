@@ -64,7 +64,7 @@ About this documentation
 ------------------------
 
 As you read through this documentation, you will see many listings; in
-this version of the documentation, there are a total of 345. This may
+this version of the documentation, there are a total of 336. This may
 seem a lot, but I deem it necessary in presenting the various different
 options of ``latexindent.pl`` and the associated output that they are
 capable of producing.
@@ -99,18 +99,6 @@ given (as here) it means that the snippet is taken directly from
 This type of listing is a ``.yaml`` file, but it will only be relevant
 when the ``-m`` switch is active; see :numref:`sec:modifylinebreaks`
 for more details.
-
-You will occasionally see dates shown in the margin (for example, next
-to this paragraph!) which detail the date of the version in which the
-feature was implemented; the ‘N’ stands for ‘new as of the date shown’
-and ‘U’ stands for ‘updated as of the date shown’. If you see , it means
-that the feature is either new (N) or updated (U) as of the release of
-the current version; if you see attached to a listing, then it means
-that listing is new (N) or updated (U) as of the current version. If you
-have not read this document before (and even if you have!), then you can
-ignore every occurrence of the ; they are simply there to highlight new
-and updated features. The new and updated features in this documentation
-() are on the following pages:
 
 .. label follows
 

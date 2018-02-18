@@ -165,7 +165,10 @@ if(!$readTheDocsMode){
         push(@lines,$_) while(<MAINFILE>);
         close(MAINFILE);
         my $body = join("",@lines);
-        
+
+        # remove latex only block
+        $body =~ s/%\h*\\begin\{latexonly\}.*?%\h*\\end\{latexonly\}/\n\n/sg;
+
         # references
         $body =~ s/(\\section\{References\})(.*)(\\label\{.*?\})/$1$3$2/s;
         $body =~ s/\\printbibliography\[.*?\]/\\printbibliography/sg;
