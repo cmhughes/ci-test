@@ -26,6 +26,9 @@ perl -p0i -e 's/(:alt:.*?)\R{2}(\h*)/\n\n$2/gs' ${mainFile}.rst
 perl -p0i -e 's/(:caption:.*?)(^\h+:name:)/my $caption=$1; my $name=$2; $caption=~ s|\h*\R| |sg; $caption."\n".$name;/emgs' ${mainFile}.rst
 # some literalincludes can have spurious line breaks
 perl -p0i -e 's/^\h*(\.\. literalinclude::)\h*\R/$1 /gsm' ${mainFile}.rst
+# caption and number the tables
+perl -p0i -e 's|(\.\. _tab.*?$)(.*?)^Table:(.*?)$|my $label=$1; my $body=$2; my $caption=$3; $body=~s/^/\t/mg; $label."\n\n.. table:: ".$caption."\n\n".$body;|msge' ${mainFile}.rst
+perl -p0i -e 's/^\h*\|\h*$//mg' ${mainFile}.rst
 
 # reset the .tex file
 git checkout ${mainFile}.tex
