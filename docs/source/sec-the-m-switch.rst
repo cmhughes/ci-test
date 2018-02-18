@@ -1427,8 +1427,6 @@ and ‘comment-marked’ code blocks (:numref:`lst:alignmentmarkup`) can
 .. _tab:poly-switch-mapping:
 
 .. table::  Poly-switch mappings for all code-block types
-
-	
 	
 
 	
