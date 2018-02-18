@@ -1516,8 +1516,6 @@ and ‘comment-marked’ code blocks (:numref:`lst:alignmentmarkup`) can
 	
 
 
-We will refer to :numref:`tab:poly-switch-mapping` in what follows.
-
 Partnering ``BodyStartsOnOwnLine`` with argument-based poly-switches
 --------------------------------------------------------------------
 
