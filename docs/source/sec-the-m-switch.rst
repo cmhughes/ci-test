@@ -1427,6 +1427,8 @@ and ‘comment-marked’ code blocks (:numref:`lst:alignmentmarkup`) can
 .. _tab:poly-switch-mapping:
 
 .. table::  Poly-switch mappings for all code-block types
+
+	
 	
 
 	
@@ -1513,6 +1515,8 @@ and ‘comment-marked’ code blocks (:numref:`lst:alignmentmarkup`) can
 	+---------------------------------+---------------------------------+-----+------------------------------------+
 	
 
+
+We will refer to :numref:`tab:poly-switch-mapping` in what follows.
 
 Partnering ``BodyStartsOnOwnLine`` with argument-based poly-switches
 --------------------------------------------------------------------
